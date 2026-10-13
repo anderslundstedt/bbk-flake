@@ -6,7 +6,7 @@
 
   outputs = inputs@{self,...}:
     let
-      systems = ["x86_64-linux"  "aarch64-linux" "aarch64-darwin"];
+      systems = ["x86_64-linux" "aarch64-linux" "aarch64-darwin"];
     in
       inputs.flake-utils.lib.eachSystem systems (system:
         let
@@ -15,20 +15,22 @@
         in {
           packages.default = nixpkgs-stable.stdenv.mkDerivation rec {
             name    = "bbk-cli-${version}";
-            version = "1.2.2";
+            version = "5.1.0";
 
-            src = nixpkgs-stable.fetchFromGitHub {
-              owner  = "dotse";
-              repo   = "bbk";
-              rev    = "BBK_CLI_${version}";
-              sha256 = "sha256-CQEnMBARxEqUj+eB5Cf/aF918lPeN5PA+qb8HNlN2X0=";
+            src = nixpkgs-stable.fetchFromGitLab {
+              owner  = "internetstiftelsen-oss";
+              repo   = "bredbandskollen";
+              rev    = version;
+              sha256 = "sha256-vl2TrNQ4tMTioZjmtd44HYG3pkgMAgNHSgxhI/KXNiQ=";
             };
 
-            sourceRoot = "source/src";
+            sourceRoot = "source";
 
             preBuild = "cd cli";
 
             buildInputs = [];
+
+            enableParallelBuilding = true;
 
             installPhase = ''
               mkdir -p $out/bin
@@ -36,7 +38,8 @@
             '';
 
             meta = {
-              homepage    = "https://github.com/dotse/bbk";
+              homepage    =
+                "https://gitlab.com/internetstiftelsen-oss/bredbandskollen";
               description = "CLI to bredbandskollen.se";
               license     = nixpkgs-stable.lib.licenses.mit;
             };
