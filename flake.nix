@@ -35,6 +35,7 @@
             installPhase = ''
               mkdir -p $out/bin
               mv bbk $out/bin/bbk
+              ln -s bbk $out/bin/bbk-cli # old name
             '';
 
             meta = {
