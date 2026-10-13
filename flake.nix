@@ -34,7 +34,7 @@
 
             installPhase = ''
               mkdir -p $out/bin
-              mv cli $out/bin/bbk-cli
+              mv bbk $out/bin/bbk
             '';
 
             meta = {
@@ -42,6 +42,7 @@
                 "https://gitlab.com/internetstiftelsen-oss/bredbandskollen";
               description = "CLI to bredbandskollen.se";
               license     = nixpkgs-stable.lib.licenses.mit;
+              mainProgram = "bbk";
             };
           };
         }
